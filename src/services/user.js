@@ -1,4 +1,5 @@
 import * as db from '../db/user'
+import logger from '../logger'
 import { removeEmptyValuesFromObj } from '../utils/general.js'
 
 //CREATE
@@ -11,7 +12,7 @@ export const createUser = async (data) => {
     const user = await db.createUser(userToDB)
     return user
   } catch (error) {
-    console.log(error)
+    logger.error(`[services/user] - createUser - ${error}`)
     throw error
   }
 }
@@ -19,7 +20,7 @@ export const createUser = async (data) => {
 export const userLogin = async (data) => {
   try {
   } catch (error) {
-    console.log(error)
+    logger.error(`[services/user] - userLogin - ${error}`)
     throw error
   }
 }
@@ -30,7 +31,7 @@ export const getUser = async (id) => {
     const response = await db.getUser(id)
     return response
   } catch (error) {
-    console.log(error)
+    logger.error(`[services/user] - getUser - ${error}`)
     throw error
   }
 }
@@ -42,7 +43,7 @@ export const updateUser = async (id, data) => {
     const response = await db.updateUser(id, updatedInfoToDB)
     return response
   } catch (error) {
-    console.log(error)
+    logger.error(`[services/user] - updateUser - ${error}`)
     throw error
   }
 }
@@ -56,7 +57,7 @@ export const deleteUser = async (id) => {
     }
     return { success: userDeleted, message: 'Try again later' }
   } catch (error) {
-    console.log(error)
+    logger.error(`[services/user] - deleteUser - ${error}`)
     throw error
   }
 }

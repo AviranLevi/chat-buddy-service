@@ -3,11 +3,16 @@ import mongoose from 'mongoose';
 import moment from 'moment';
 import bcrypt from 'bcryptjs';
 import { isEmail } from 'validator';
+import { v4 as uuid } from 'uuid'
 
 const Schema = mongoose.Schema;
 const currentDate = moment().format('MMM Do YYYY');
 
 const UserSchema = new Schema({
+  _id: {
+    type: String,
+    default: uuid,
+  },
   userName: {
     type: String,
     unique: true,
@@ -32,11 +37,7 @@ const UserSchema = new Schema({
   },
   profileImage: {
     url: { type: String },
-    cloudID: { type: String },
     name: { type: String },
-  },
-  socialMedia: {
-    type: [String],
   },
   createdAt: {
     type: String,

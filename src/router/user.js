@@ -1,5 +1,5 @@
 import express from 'express'
-import * as routes from './routes/userRoutes'
+import * as routes from './routes/user'
 import passport from 'passport'
 
 const router = express.Router()

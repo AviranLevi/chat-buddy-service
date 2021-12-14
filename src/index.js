@@ -1,14 +1,14 @@
 import express from 'express'
-import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import router from './router'
-import { DEV } from './config'
+import { PORT, CONNECTION_STRING, DEV } from './config'
+import logger from './logger'
 
 const app = express()
-const { env } = process
-const port = env.PORT || 5000
-const url = env.CONNECTION_STRING || 'mongodb://localhost:27017/join-us'
+const port = PORT || 5000
+const url = CONNECTION_STRING || 'mongodb://localhost:27017'
+
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -16,30 +16,16 @@ const options = {
   useFindAndModify: false,
 }
 
-mongoose.connect(url, options).then(() => console.log('DB Connected'))
+mongoose.connect(url, options).then(() => logger.info('DB Connected'))
 app.use(express.json())
-app.use(cookieParser())
 
 if (DEV) {
   app.use(cors())
+  logger.info('Cors is running')
 }
-
-app.use(sslRedirect())
-
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Credentials', 'true')
-  res.setHeader('Access-Control-Allow-Credentials', 'true')
-  res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT')
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type,Authorization, Access-Control-Request-Method, Access-Control-Request-Headers'
-  )
-  next()
-})
 
 app.use('/api', router)
 
 app.listen(port, () => {
-  console.log(`app is listening to port ${port}`)
+  logger.info(`app is listening to port ${port}`)
 })

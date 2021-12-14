@@ -2,6 +2,7 @@ import * as service from '../../services/user'
 import { httpResponseStatus } from '../../constant'
 const { OK, ERR } = httpResponseStatus
 import * as JWT from '../../utils/jwt'
+import logger from '../../logger'
 
 export const createUser = async (req, res, next) => {
   try {
@@ -9,7 +10,7 @@ export const createUser = async (req, res, next) => {
     res.status(OK).json(result)
   } catch (error) {
     res.status(ERR).json(error)
-    throw error
+    logger.error(`[router/routes/user] - createUser - ${error}`)
   }
 }
 
@@ -23,7 +24,7 @@ export const userLogin = (req, res, next) => {
     }
   } catch (error) {
     res.status(ERR).json(error)
-    throw error
+    logger.error(`[router/routes/user] - userLogin - ${error}`)
   }
 }
 
@@ -34,7 +35,7 @@ export const getUser = async (req, res, next) => {
     res.status(OK).json(result)
   } catch (error) {
     res.status(ERR).json(error)
-    throw error
+    logger.error(`[router/routes/user] - getUser - ${error}`)
   }
 }
 
@@ -45,7 +46,7 @@ export const updateUser = async (req, res, next) => {
     res.status(OK).json(result)
   } catch (error) {
     res.status(ERR).json(error)
-    throw error
+    logger.error(`[router/routes/user] - updateUser - ${error}`)
   }
 }
 
@@ -53,7 +54,8 @@ export const userLogout = (req, res, next) => {
   try {
     res.status(OK).json({ success: true })
   } catch (error) {
-    res.status(ERR).json({ message: error.message, success: false })
+    res.status(ERR).json(error)
+    logger.error(`[router/routes/user] - userLogout - ${error}`)
   }
 }
 
@@ -64,6 +66,6 @@ export const deleteUser = async (req, res, next) => {
     res.status(OK).json(result)
   } catch (error) {
     res.status(ERR).json(error)
-    throw error
+    logger.error(`[router/routes/user] - deleteUser - ${error}`)
   }
 }
