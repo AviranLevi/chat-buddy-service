@@ -6,7 +6,7 @@ import { PORT, CONNECTION_STRING, DEV } from './config'
 import logger from './logger'
 
 const app = express()
-const port = PORT || 5000
+const port = PORT || 3030
 const url = CONNECTION_STRING || 'mongodb://localhost:27017'
 
 const options = {

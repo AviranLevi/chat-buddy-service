@@ -1,0 +1,35 @@
+import * as db from '../dal/message'
+import logger from '../logger'
+
+//CREATE
+export const createMessage = async (data) => {
+  try {
+    const message = await db.createMessage(data)
+    return message
+  } catch (error) {
+    logger.error(`[services/message] - createMessage - ${error}`)
+    throw error
+  }
+}
+
+//READ
+export const getMessages = async () => {
+  try {
+    const response = await db.getMessages()
+    return response
+  } catch (error) {
+    logger.error(`[services/message] - getMessage - ${error}`)
+    throw error
+  }
+}
+
+//UPDATE
+export const updateMessage = async (id, data) => {
+  try {
+    const response = await db.updateMessage(id, data)
+    return response
+  } catch (error) {
+    logger.error(`[services/message] - updateMessage - ${error}`)
+    throw error
+  }
+}

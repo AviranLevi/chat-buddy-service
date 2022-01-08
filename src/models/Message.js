@@ -5,14 +5,22 @@ import { v4 as uuid } from 'uuid'
 const Schema = mongoose.Schema
 const currentDate = moment().format('MMM Do YYYY')
 
-const UserSchema = new Schema({
+const MessageSchema = new Schema({
   _id: {
     type: String,
     default: uuid,
   },
-  userName: {
+  message: {
     type: String,
-    required: [true, `User name is required`],
+  },
+  type: {
+    type: String,
+    default: 'message',
+  },
+  user: {
+    type: String,
+    ref: 'User',
+    required: [true, `User is required`],
   },
   createdAt: {
     type: String,
@@ -23,4 +31,4 @@ const UserSchema = new Schema({
   },
 })
 
-export default mongoose.model('User', UserSchema)
+export default mongoose.model('Message', MessageSchema)

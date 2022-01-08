@@ -1,26 +1,13 @@
-import * as db from '../db/user'
+import * as db from '../dal/user'
 import logger from '../logger'
-import { removeEmptyValuesFromObj } from '../utils/general.js'
 
 //CREATE
 export const createUser = async (data) => {
   try {
-    const { email } = data
-    const extractUserName = email.split('@')
-    const userName = extractUserName[0] + Math.floor(Math.random() * 1000000000).toString()
-    const userToDB = Object.assign({ userName }, data)
-    const user = await db.createUser(userToDB)
+    const user = await db.createUser(data)
     return user
   } catch (error) {
     logger.error(`[services/user] - createUser - ${error}`)
-    throw error
-  }
-}
-
-export const userLogin = async (data) => {
-  try {
-  } catch (error) {
-    logger.error(`[services/user] - userLogin - ${error}`)
     throw error
   }
 }
@@ -39,8 +26,7 @@ export const getUser = async (id) => {
 //UPDATE
 export const updateUser = async (id, data) => {
   try {
-    const updatedInfoToDB = removeEmptyValuesFromObj(data)
-    const response = await db.updateUser(id, updatedInfoToDB)
+    const response = await db.updateUser(id, data)
     return response
   } catch (error) {
     logger.error(`[services/user] - updateUser - ${error}`)

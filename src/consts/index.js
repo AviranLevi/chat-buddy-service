@@ -17,3 +17,9 @@ export const dbResponses = {
     message: 'Email already in use',
   },
 }
+
+export const messagesType = {
+  message: 'message',
+  question: 'question',
+  answer: 'answer',
+}
