@@ -22,6 +22,10 @@ const MessageSchema = new Schema({
     ref: 'User',
     required: [true, `User is required`],
   },
+  room: {
+    type: String,
+    ref: 'Room',
+  },
   createdAt: {
     type: String,
     default: currentDate,

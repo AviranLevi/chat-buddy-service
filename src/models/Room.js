@@ -5,19 +5,29 @@ import { v4 as uuid } from 'uuid'
 const Schema = mongoose.Schema
 const currentDate = moment().format('MMM Do YYYY')
 
-const UserSchema = new Schema({
+const RoomSchema = new Schema({
   _id: {
     type: String,
     default: uuid,
   },
-  userName: {
+  name: {
     type: String,
-    required: [true, `User name is required`],
   },
-  email: {
+  users: [
+    {
+      type: String,
+      ref: 'User',
+      required: [true, `User id is required`],
+    },
+  ],
+  type: {
     type: String,
-    unique: true,
-    required: [true, 'Email is required'],
+    default: 'private',
+  },
+  admin: {
+    type: String,
+    ref: 'User',
+    required: [true, `User id is required`],
   },
   createdAt: {
     type: String,
@@ -28,4 +38,4 @@ const UserSchema = new Schema({
   },
 })
 
-export default mongoose.model('User', UserSchema)
+export default mongoose.model('Room', RoomSchema)

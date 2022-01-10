@@ -46,7 +46,11 @@
         "I'd like to know your age",
         "tell me your age"
       ],
-      "answers": ["I'm very young", "I was created recently", "Age is just a number. You're only as old as you feel"]
+      "answers": [
+        "Well lets just say you might die first",
+        "I was created recently",
+        "Age is just a number. You're only as old as you feel"
+      ]
     },
     {
       "intent": "agent.annoying",
