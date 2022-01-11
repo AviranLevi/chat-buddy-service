@@ -7,7 +7,7 @@ import logger from './logger'
 
 const app = express()
 const port = PORT || 3030
-const url = CONNECTION_STRING || 'mongodb://localhost:27017'
+const url = CONNECTION_STRING || 'mongodb://localhost:27017/chat-buddies'
 
 const options = {
   useNewUrlParser: true,

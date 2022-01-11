@@ -14,7 +14,7 @@ export const joinUser = async (socket, user, room) => {
     admin: _id,
   }
 
-  const room = await roomService.createRoom(roomData)
+  await roomService.createRoom(roomData)
   socket.join(roomName)
   socket.broadcast.to(roomName).emit('adminMessage', { text: `${user.userName} has joined!` })
 }

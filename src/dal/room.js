@@ -9,7 +9,7 @@ export const createRoom = async (data) => {
     const room = await new Room(data)
     await room.save()
     logger.info(`Created new room - ${room._id}`)
-    return user
+    return room
   } catch (error) {
     logger.error(`[dal/room] - createRoom - ${error}`)
     throw error
