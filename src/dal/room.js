@@ -36,6 +36,16 @@ export const getRoom = async (id) => {
   }
 }
 
+export const getRoomByUniqueName = async (uniqueName) => {
+  try {
+    const room = await Room.findOne({ uniqueName }).lean().exec()
+    return room
+  } catch (error) {
+    logger.error(`[dal/room] - getRoomByUniqueName - ${error}`)
+    throw error
+  }
+}
+
 export const updateRoom = async (roomId, data) => {
   try {
     const newData = Object.assign(data, { updatedAt: currentDate })

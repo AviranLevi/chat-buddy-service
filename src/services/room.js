@@ -1,10 +1,13 @@
 import * as db from '../dal/room'
 import logger from '../logger'
-
+import * as utils from '../utils'
 //CREATE
-export const createRoom = async (data) => {
+export const createRoom = async (data = {}) => {
   try {
-    const room = await db.createRoom(data)
+    const { name } = data
+    const uniqueName = `${name}-${utils.generateNumber()}`
+    const dataToDB = { ...data, uniqueName }
+    const room = await db.createRoom(dataToDB)
     return room
   } catch (error) {
     logger.error(`[services/room] - createRoom - ${error}`)
@@ -13,7 +16,6 @@ export const createRoom = async (data) => {
 }
 
 //READ
-
 export const getRooms = async (userId) => {
   try {
     const response = await db.getRooms(userId)
@@ -30,6 +32,16 @@ export const getRoom = async (id) => {
     return response
   } catch (error) {
     logger.error(`[services/room] - getRoom - ${error}`)
+    throw error
+  }
+}
+
+export const getRoomByUniqueName = async (uniqueName) => {
+  try {
+    const response = await db.getRoomByUniqueName(uniqueName)
+    return response
+  } catch (error) {
+    logger.error(`[services/room] - getRoomByUniqueName - ${error}`)
     throw error
   }
 }

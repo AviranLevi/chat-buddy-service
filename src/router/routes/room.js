@@ -35,6 +35,17 @@ export const getRoom = async (req, res, next) => {
   }
 }
 
+export const getRoomByUniqueName = async (req, res, next) => {
+  try {
+    const { name } = req.params
+    const result = await service.getRoomByUniqueName(name)
+    res.status(OK).json(result)
+  } catch (error) {
+    res.status(ERR).json(error)
+    logger.error(`[router/routes/room] - getRoomByUniqueName - ${error}`)
+  }
+}
+
 export const updateRoom = async (req, res, next) => {
   try {
     const { id } = req.params

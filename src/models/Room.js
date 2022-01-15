@@ -13,6 +13,11 @@ const RoomSchema = new Schema({
   name: {
     type: String,
   },
+  uniqueName: {
+    type: String,
+    unique: true,
+    required: [true, 'uniqueName is required'],
+  },
   users: [
     {
       type: String,
