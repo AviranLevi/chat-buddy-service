@@ -13,10 +13,10 @@ export const createRoom = async (req, res, next) => {
   }
 }
 
-export const getRooms = async (req, res, next) => {
+export const getRoomsByUser = async (req, res, next) => {
   try {
-    const { userId } = req.params
-    const result = await service.getRooms(userId)
+    const { id: userId } = req.params
+    const result = await service.getRoomsByUser(userId)
     res.status(OK).json(result)
   } catch (error) {
     res.status(ERR).json(error)

@@ -16,9 +16,9 @@ export const createRoom = async (data) => {
   }
 }
 
-export const getRooms = async (userId) => {
+export const getRoomsByUser = async (userEmail) => {
   try {
-    const rooms = await Room.find({}).lean().exec()
+    const rooms = await Room.find({ users: userEmail }).lean().exec()
     return rooms
   } catch (error) {
     logger.error(`[dal/room] - getRooms - ${error}`)

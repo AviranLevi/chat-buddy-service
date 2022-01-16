@@ -16,12 +16,12 @@ export const createMessage = async (data) => {
   }
 }
 
-export const getMessages = async () => {
+export const getMessagesByRoomId = async (roomId) => {
   try {
-    const messages = await Message.find({}).populate('user').lean().exec()
+    const messages = await Message.find({ room: roomId }).populate('user').lean().exec()
     return messages
   } catch (error) {
-    logger.error(`[dal/message] - getMessage - ${error}`)
+    logger.error(`[dal/message] - getMessagesByRoomId - ${error}`)
     throw error
   }
 }

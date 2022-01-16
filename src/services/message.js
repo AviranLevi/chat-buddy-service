@@ -13,12 +13,12 @@ export const createMessage = async (data) => {
 }
 
 //READ
-export const getMessages = async () => {
+export const getMessagesByRoomId = async (roomId) => {
   try {
-    const response = await db.getMessages()
+    const response = await db.getMessagesByRoomId(roomId)
     return response
   } catch (error) {
-    logger.error(`[services/message] - getMessage - ${error}`)
+    logger.error(`[services/message] - getMessagesByRoomId - ${error}`)
     throw error
   }
 }

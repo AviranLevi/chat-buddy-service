@@ -13,13 +13,14 @@ export const createMessage = async (req, res, next) => {
   }
 }
 
-export const getMessages = async (req, res, next) => {
+export const getMessagesByRoomId = async (req, res, next) => {
   try {
-    const result = await service.getMessages()
+    const { id: roomId } = req.params
+    const result = await service.getMessagesByRoomId(roomId)
     res.status(OK).json(result)
   } catch (error) {
     res.status(ERR).json(error)
-    logger.error(`[router/routes/message] - getMessage - ${error}`)
+    logger.error(`[router/routes/message] - getMessagesByRoomId - ${error}`)
   }
 }
 

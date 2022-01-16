@@ -1,10 +1,12 @@
 import * as db from '../dal/room'
+import * as userDB from '../dal/user'
 import logger from '../logger'
 import * as utils from '../utils'
 //CREATE
 export const createRoom = async (data = {}) => {
   try {
-    const { name } = data
+    const { name, users } = data
+    //TODO - check if all users that invited are exists and if not - send them an email to join and create user automatically
     const uniqueName = `${name}-${utils.generateNumber()}`
     const dataToDB = { ...data, uniqueName }
     const room = await db.createRoom(dataToDB)
@@ -16,9 +18,10 @@ export const createRoom = async (data = {}) => {
 }
 
 //READ
-export const getRooms = async (userId) => {
+export const getRoomsByUser = async (userId) => {
   try {
-    const response = await db.getRooms(userId)
+    const { email } = await userDB.getUser(userId)
+    const response = await db.getRoomsByUser(email)
     return response
   } catch (error) {
     logger.error(`[services/room] - getRooms - ${error}`)
