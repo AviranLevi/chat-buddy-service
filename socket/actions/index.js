@@ -1,6 +1,6 @@
-import * as messageDAL from '../../src/dal/message'
+import * as messageDB from '../../src/dal/message'
 import * as userDAL from '../../src/dal/user'
-import * as roomDAL from '../../src/dal/room'
+import * as roomDB from '../../src/dal/room'
 import * as roomService from '../../src/services/room'
 import logger from '../../src/logger'
 
@@ -8,9 +8,6 @@ export const joinUser = async (socket, user, room) => {
   logger.debug(JSON.stringify({ user, room }, null, 4))
   const { name: roomName } = room
   const { _id } = user
-
-  //   socket.join(roomName)
-  //   socket.broadcast.to(roomName).emit('adminMessage', { text: `${user.userName} has joined!` })
 }
 
 export const userTyping = (socket, user) => {
@@ -23,14 +20,14 @@ export const userStopTyping = (socket, user) => {
   socket.broadcast.emit('notifyStopTyping')
 }
 
-export const sendMessage = async (io, data) => {
+export const sendMessage = async (socket, data) => {
   const { room: roomId } = data
   logger.debug('message: ' + JSON.stringify(data))
   //save chat to the database
-  messageDAL.createMessage(data)
-
+  await messageDB.createMessage(data)
+  const updatedMessages = await messageDB.getMessagesByRoomId(roomId)
   //send message to room.
-  io.to(roomId).emit('sendMessage', data)
+  socket.emit('recivedMessages', updatedMessages)
 }
 
 export const userDisconnect = (socket, user) => {

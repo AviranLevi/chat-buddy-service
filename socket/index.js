@@ -17,7 +17,7 @@ socketIO.on('connection', (socket) => {
   //soemone stopped typing
   socket.on('stopTyping', (user) => socketActions.userStopTyping(socket, user))
   //sending message
-  socket.on('roomMessage', (data) => socketActions.sendMessage(io, data))
+  socket.on('roomMessage', (data) => socketActions.sendMessage(socket, data))
   //user disconnected
   socket.on('disconnect', (userId) => socketActions.userDisconnect(socket, userId))
 })
