@@ -5,18 +5,12 @@ import * as roomService from '../../src/services/room'
 import logger from '../../src/logger'
 
 export const joinUser = async (socket, user, room) => {
+  logger.debug(JSON.stringify({ user, room }, null, 4))
   const { name: roomName } = room
   const { _id } = user
 
-  const roomData = {
-    name: roomName,
-    users: [_id],
-    admin: _id,
-  }
-
-  await roomService.createRoom(roomData)
-  socket.join(roomName)
-  socket.broadcast.to(roomName).emit('adminMessage', { text: `${user.userName} has joined!` })
+  //   socket.join(roomName)
+  //   socket.broadcast.to(roomName).emit('adminMessage', { text: `${user.userName} has joined!` })
 }
 
 export const userTyping = (socket, user) => {
@@ -30,13 +24,13 @@ export const userStopTyping = (socket, user) => {
 }
 
 export const sendMessage = async (io, data) => {
-  const { room: roomName } = data
+  const { room: roomId } = data
   logger.debug('message: ' + JSON.stringify(data))
   //save chat to the database
   messageDAL.createMessage(data)
 
   //send message to room.
-  io.to(roomName).emit('sendMessage', data)
+  io.to(roomId).emit('sendMessage', data)
 }
 
 export const userDisconnect = (socket, user) => {

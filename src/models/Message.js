@@ -25,6 +25,7 @@ const MessageSchema = new Schema({
   room: {
     type: String,
     ref: 'Room',
+    required: [true, 'Room is required'],
   },
   createdAt: {
     type: String,

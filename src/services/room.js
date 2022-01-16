@@ -1,5 +1,6 @@
 import * as db from '../dal/room'
 import * as userDB from '../dal/user'
+import * as messageDB from '../dal/message'
 import logger from '../logger'
 import * as utils from '../utils'
 //CREATE
@@ -41,8 +42,10 @@ export const getRoom = async (id) => {
 
 export const getRoomByUniqueName = async (uniqueName) => {
   try {
-    const response = await db.getRoomByUniqueName(uniqueName)
-    return response
+    const room = await db.getRoomByUniqueName(uniqueName)
+    const roomMessages = await messageDB.getMessagesByRoomId(room._id)
+    const results = { ...room, messages: roomMessages }
+    return results
   } catch (error) {
     logger.error(`[services/room] - getRoomByUniqueName - ${error}`)
     throw error
