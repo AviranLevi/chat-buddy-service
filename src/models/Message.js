@@ -20,7 +20,10 @@ const MessageSchema = new Schema({
   user: {
     type: String,
     ref: 'User',
-    required: [true, `User is required`],
+  },
+  chatBot: {
+    type: Boolean,
+    default: false,
   },
   room: {
     type: String,

@@ -3,7 +3,7 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import router from './router'
 import { PORT, CONNECTION_STRING, DEV } from './config'
-import logger from './logger'
+import logger from '../libs/logger'
 
 const app = express()
 const port = PORT || 3030

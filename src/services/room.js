@@ -1,7 +1,7 @@
 import * as db from '../dal/room'
 import * as userDB from '../dal/user'
 import * as messageDB from '../dal/message'
-import logger from '../logger'
+import logger from '../../libs/logger'
 import * as utils from '../utils'
 //CREATE
 export const createRoom = async (data = {}) => {

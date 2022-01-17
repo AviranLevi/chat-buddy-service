@@ -1,6 +1,6 @@
 import Message from '../models/Message'
 import moment from 'moment'
-import logger from '../logger'
+import logger from '../../libs/logger'
 
 const currentDate = moment().format('MMM Do YYYY')
 

@@ -1,6 +1,6 @@
 import Room from '../models/Room'
 import moment from 'moment'
-import logger from '../logger'
+import logger from '../../libs/logger'
 
 const currentDate = moment().format('MMM Do YYYY')
 

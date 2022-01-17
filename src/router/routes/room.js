@@ -1,7 +1,7 @@
 import * as service from '../../services/room'
 import { httpResponseStatus } from '../../consts'
 const { OK, ERR } = httpResponseStatus
-import logger from '../../logger'
+import logger from '../../../libs/logger'
 
 export const createRoom = async (req, res, next) => {
   try {

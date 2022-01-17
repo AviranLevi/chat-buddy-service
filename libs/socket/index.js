@@ -1,6 +1,6 @@
 import io from 'socket.io'
 import * as socketActions from './actions'
-import logger from '../src/logger'
+import logger from '../logger'
 
 const socketIO = io(8900, {
   cors: {
@@ -18,6 +18,8 @@ socketIO.on('connection', (socket) => {
   socket.on('stopTyping', (user) => socketActions.userStopTyping(socket, user))
   //sending message
   socket.on('roomMessage', (data) => socketActions.sendMessage(socket, data))
+  //sending chatbot message
+  socket.on('chatBotMessage', (data) => socketActions.sendChatBotAnswer(socket, data))
   //user disconnected
   socket.on('disconnect', (userId) => socketActions.userDisconnect(socket, userId))
 })

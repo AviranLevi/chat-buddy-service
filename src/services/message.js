@@ -1,5 +1,5 @@
 import * as db from '../dal/message'
-import logger from '../logger'
+import logger from '../../libs/logger'
 
 //CREATE
 export const createMessage = async (data) => {
