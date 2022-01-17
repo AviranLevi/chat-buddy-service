@@ -18,6 +18,8 @@ socketIO.on('connection', (socket) => {
   socket.on('stopTyping', (user) => socketActions.userStopTyping(socket, user))
   //sending message
   socket.on('roomMessage', (data) => socketActions.sendMessage(socket, data))
+  //get question - chat bot
+  socket.on('sendQuestion', (data) => socketActions.sendQuestion(socket, data))
   //sending chatbot message
   socket.on('chatBotMessage', (data) => socketActions.sendChatBotAnswer(socket, data))
   //user disconnected

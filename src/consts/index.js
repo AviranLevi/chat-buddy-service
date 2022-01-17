@@ -1,25 +1,5 @@
-export const httpResponseStatus = {
-  OK: 200,
-  ERR: 500,
-}
-
-export const dbResponses = {
-  findErr: {
-    error: true,
-    message: 'Something went wrong',
-  },
-  alreadyExists: {
-    error: true,
-    message: 'User already exists',
-  },
-  emailAlreadyInUse: {
-    error: true,
-    message: 'Email already in use',
-  },
-}
-
-export const messagesType = {
-  message: 'message',
-  question: 'question',
-  answer: 'answer',
-}
+export * from './user'
+export * from './room'
+export * from './answer'
+export * from './general'
+export * from './message'

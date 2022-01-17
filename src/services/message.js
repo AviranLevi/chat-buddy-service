@@ -22,14 +22,3 @@ export const getMessagesByRoomId = async (roomId) => {
     throw error
   }
 }
-
-//UPDATE
-export const updateMessage = async (id, data) => {
-  try {
-    const response = await db.updateMessage(id, data)
-    return response
-  } catch (error) {
-    logger.error(`[services/message] - updateMessage - ${error}`)
-    throw error
-  }
-}

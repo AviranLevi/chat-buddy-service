@@ -1,8 +1,6 @@
 import Answer from '../models/Answer'
-import moment from 'moment'
 import logger from '../../libs/logger'
-
-const currentDate = moment().format('MMM Do YYYY')
+import { answerSelect } from '../consts'
 
 export const createAnswer = async (data) => {
   try {
@@ -18,7 +16,7 @@ export const createAnswer = async (data) => {
 
 export const getAnswers = async () => {
   try {
-    const answers = await Answer.find({}).lean().exec()
+    const answers = await Answer.find({}).select(answerSelect).lean().exec()
     return answers
   } catch (error) {
     logger.error(`[dal/answer] - getAnswers - ${error}`)
@@ -28,7 +26,7 @@ export const getAnswers = async () => {
 
 export const getAnswer = async (id) => {
   try {
-    const answer = await Answer.findById(id).lean().exec()
+    const answer = await Answer.findById(id).select(answerSelect).lean().exec()
     return answer
   } catch (error) {
     logger.error(`[dal/answer] - getAnswer - ${error}`)

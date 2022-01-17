@@ -5,17 +5,13 @@ import { v4 as uuid } from 'uuid'
 const Schema = mongoose.Schema
 const currentDate = moment().format('MMM Do YYYY')
 
-const AnswerSchema = new Schema({
+const QuestionSchema = new Schema({
   _id: {
     type: String,
     default: uuid,
   },
-  answer: {
-    type: String,
-  },
   question: {
     type: String,
-    ref: 'Question',
   },
   createdAt: {
     type: String,
@@ -26,4 +22,4 @@ const AnswerSchema = new Schema({
   },
 })
 
-export default mongoose.model('Answer', AnswerSchema)
+export default mongoose.model('Question', QuestionSchema)
