@@ -8,7 +8,7 @@ export const createUser = async (req, res, next) => {
     const result = await service.createUser(req.body)
     res.status(OK).json(result)
   } catch (error) {
-    res.status(ERR).json(error)
+    res.status(ERR).json({ success: false, error })
     logger.error(`[router/routes/user] - createUser - ${error}`)
   }
 }
@@ -19,7 +19,7 @@ export const getUser = async (req, res, next) => {
     const result = await service.getUser(id)
     res.status(OK).json(result)
   } catch (error) {
-    res.status(ERR).json(error)
+    res.status(ERR).json({ success: false, error })
     logger.error(`[router/routes/user] - getUser - ${error}`)
   }
 }
@@ -30,7 +30,7 @@ export const updateUser = async (req, res, next) => {
     const result = await service.updateUser(id, req.body)
     res.status(OK).json(result)
   } catch (error) {
-    res.status(ERR).json(error)
+    res.status(ERR).json({ success: false, error })
     logger.error(`[router/routes/user] - updateUser - ${error}`)
   }
 }
@@ -41,7 +41,7 @@ export const deleteUser = async (req, res, next) => {
     const result = await service.deleteUser(id)
     res.status(OK).json(result)
   } catch (error) {
-    res.status(ERR).json(error)
+    res.status(ERR).json({ success: false, error })
     logger.error(`[router/routes/user] - deleteUser - ${error}`)
   }
 }

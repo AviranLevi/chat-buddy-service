@@ -8,7 +8,7 @@ export const createMessage = async (req, res, next) => {
     const result = await service.createMessage(req.body)
     res.status(OK).json(result)
   } catch (error) {
-    res.status(ERR).json(error)
+    res.status(ERR).json({ success: false, error })
     logger.error(`[router/routes/message] - createMessage - ${error}`)
   }
 }
@@ -19,7 +19,7 @@ export const getMessagesByRoomId = async (req, res, next) => {
     const result = await service.getMessagesByRoomId(roomId)
     res.status(OK).json(result)
   } catch (error) {
-    res.status(ERR).json(error)
+    res.status(ERR).json({ success: false, error })
     logger.error(`[router/routes/message] - getMessagesByRoomId - ${error}`)
   }
 }
