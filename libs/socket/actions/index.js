@@ -1,13 +1,29 @@
 import * as messageDB from '../../../src/dal/message'
 import * as answerDB from '../../../src/dal/answer'
 import * as questionDB from '../../../src/dal/qusetion'
+import moment from 'moment'
 import logger from '../../logger'
 import { getAnswer } from '../../chatbot'
+
+const currentTime = moment().format('HH:MM')
 
 export const joinUser = async (socket, user, room) => {
   const { userName } = user
   const adminMessage = `${userName} joined the chat`
   socket.emit('joinUser', adminMessage)
+}
+
+export const joinChatBot = async (socket, user) => {
+  const { answer } = await getAnswer('Hello')
+
+  const chatBotMessage = {
+    message: answer,
+    time: currentTime,
+    user: {
+      userName: 'Max',
+    },
+  }
+  socket.emit('joinChatBot', chatBotMessage)
 }
 
 export const userTyping = (socket, user, room) => {
@@ -29,27 +45,22 @@ export const sendMessage = async (socket, data) => {
   socket.emit('recivedMessages', updatedMessages)
 }
 
-export const sendQuestion = async (socket, question) => {
-  const dataToDB = {
-    question,
-    room: socket.id,
-  }
-
-  const results = await questionDB.createQuestion(dataToDB)
-  socket.emit('recivedQuestion', results)
-}
-
-export const sendChatBotAnswer = async (socket, data) => {
-  const { question } = data
-  const { answer } = await getAnswer(message)
+export const getMessageFromChatBot = async (socket, question) => {
+  const { answer } = await getAnswer(question)
   const chatBotMessageToDB = {
     question,
     answer,
   }
   await answerDB.createAnswer(chatBotMessageToDB)
-  const updatedMessagesWithChatBot = await messageDB.getMessagesByRoomId(roomId)
 
-  socket.emit('recievedChatBotMessage', updatedMessagesWithChatBot)
+  const chatBotMessage = {
+    message: answer,
+    time: currentTime,
+    user: {
+      userName: 'Max',
+    },
+  }
+  socket.emit('recievedChatBotMessage', chatBotMessage)
 }
 
 export const userDisconnect = (socket, user) => {

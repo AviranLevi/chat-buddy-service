@@ -10,7 +10,10 @@ const socketIO = io(8900, {
 
 socketIO.on('connection', (socket) => {
   logger.info('user connected')
-  //create new room
+
+  //joined chatbot room
+  socket.on('joinChatBot', (user) => socketActions.joinChatBot(socket, user))
+  //joined the room
   socket.on('join', (user, room) => socketActions.joinUser(socket, user, room))
   //Someone is typing
   socket.on('typing', (user) => socketActions.userTyping(socket, user))
@@ -19,9 +22,7 @@ socketIO.on('connection', (socket) => {
   //sending message
   socket.on('roomMessage', (data) => socketActions.sendMessage(socket, data))
   //get question - chat bot
-  socket.on('sendQuestion', (data) => socketActions.sendQuestion(socket, data))
-  //sending chatbot message
-  socket.on('chatBotMessage', (data) => socketActions.sendChatBotAnswer(socket, data))
+  socket.on('sendMessageToChatBot', (data) => socketActions.getMessageFromChatBot(socket, data))
   //user disconnected
   socket.on('disconnect', (userId) => socketActions.userDisconnect(socket, userId))
 })
