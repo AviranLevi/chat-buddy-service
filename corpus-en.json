@@ -426,12 +426,12 @@
     {
       "intent": "appraisal.thankyou",
       "utterances": ["thank you", "nice thank you", "thanks buddy", "cheers", "alright thanks"],
-      "answers": ["Anytime. That's what I'm here for", "It's my pleasure to help"]
+      "answers": ["Anytime. That's what I'm here for", "It's my pleasure to help", "Sure thing!"]
     },
     {
       "intent": "appraisal.welcome",
       "utterances": ["you're welcome", "sure welcome", "anything you want", "my pleasure", "that's my pleasure"],
-      "answers": ["Nice manners!", "You're so polite"]
+      "answers": ["Nice!", "You're so polite"]
     },
     {
       "intent": "appraisal.welldone",
@@ -465,8 +465,8 @@
     },
     {
       "intent": "greetings.hello",
-      "utterances": ["hello", "hi", "howdy"],
-      "answers": ["Hey buddy!", "Yo :)"]
+      "utterances": ["hello", "hi", "howdy", "hey", "sup", "what's up"],
+      "answers": ["Hey buddy!", "Yo!"]
     },
     {
       "intent": "greetings.howareyou",
