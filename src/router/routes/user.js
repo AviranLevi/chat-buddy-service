@@ -1,7 +1,7 @@
-import * as service from '../../services/user'
-import { httpResponseStatus } from '../../consts'
+import * as service from "../../services/user"
+import { httpResponseStatus } from "../../consts"
+import logger from "../../../libs/logger"
 const { OK, ERR } = httpResponseStatus
-import logger from '../../../libs/logger'
 
 export const createUser = async (req, res, next) => {
   try {
