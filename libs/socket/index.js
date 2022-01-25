@@ -20,9 +20,13 @@ socketIO.on('connection', (socket) => {
   //soemone stopped typing
   socket.on('stopTyping', (user) => socketActions.userStopTyping(socket, user))
   //sending message
-  socket.on('roomMessage', (data) => socketActions.sendMessage(socket, data))
+  socket.on('roomMessage', (data) => socketActions.sendMessage(socketIO, data))
   //get question - chat bot
-  socket.on('sendMessageToChatBot', (data) => socketActions.getMessageFromChatBot(socket, data))
+  socket.on('sendMessageToChatBot', (data) =>
+    socketActions.getMessageFromChatBot(socket, data)
+  )
   //user disconnected
-  socket.on('disconnect', (userId) => socketActions.userDisconnect(socket, userId))
+  socket.on('disconnect', (userId) =>
+    socketActions.userDisconnect(socket, userId)
+  )
 })

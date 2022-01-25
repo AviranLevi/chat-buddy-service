@@ -1,13 +1,31 @@
 import * as db from '../dal/room'
 import * as userDB from '../dal/user'
 import * as messageDB from '../dal/message'
-import logger from '../../libs/logger'
 import * as utils from '../utils'
+import logger from '../../libs/logger'
+import { log } from '../utils'
+
 //CREATE
 export const createRoom = async (data = {}) => {
   try {
-    const { name, users } = data
+    const { name, emails } = data
+    let users = []
     //TODO - check if all users that invited are exists and if not - send them an email to join and create user automatically
+    log({ emails })
+    await Promise.all([
+      emails.map(async (email) => {
+        log(email)
+        const { _id: userExistsInDB } = await userDB.getUserByEmail(email)
+        if (userExistsInDB) {
+          logger.debug('exists')
+          users.push(userExistsInDB)
+        } else {
+          //TODO - send invite email
+          logger.debug('note exists')
+        }
+      }),
+    ])
+
     const uniqueName = `${name}-${utils.generateNumber()}`
     const dataToDB = { ...data, uniqueName }
     const room = await db.createRoom(dataToDB)
@@ -21,11 +39,12 @@ export const createRoom = async (data = {}) => {
 //READ
 export const getRoomsByUser = async (userId) => {
   try {
-    const { email } = await userDB.getUser(userId)
-    const response = await db.getRoomsByUser(email)
+    const publicRooms = await db.getPublicRooms()
+    const userRooms = await db.getRoomsByUser(userId)
+    const response = [...publicRooms, ...userRooms]
     return response
   } catch (error) {
-    logger.error(`[services/room] - getRooms - ${error}`)
+    logger.error(`[services/room] - getRoomsByUser - ${error}`)
     throw error
   }
 }

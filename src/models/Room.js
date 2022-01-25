@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import moment from 'moment'
 import { v4 as uuid } from 'uuid'
+import { roomTypes } from '../consts'
 
 const Schema = mongoose.Schema
 const currentDate = moment().format('MMM Do YYYY')
@@ -27,7 +28,7 @@ const RoomSchema = new Schema({
   ],
   type: {
     type: String,
-    default: 'private',
+    default: roomTypes.private,
   },
   admin: {
     type: String,

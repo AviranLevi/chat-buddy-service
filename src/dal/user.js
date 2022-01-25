@@ -1,6 +1,7 @@
 import User from '../models/User'
 import moment from 'moment'
 import logger from '../../libs/logger'
+import { log } from '../utils'
 
 const currentDate = moment().format('MMM Do YYYY')
 
@@ -19,9 +20,20 @@ export const createUser = async (data) => {
 export const getUsers = async () => {
   try {
     const users = await User.find({}).lean().exec()
-    return user
+    return users
   } catch (error) {
     logger.error(`[dal/user] - getUsers - ${error}`)
+    throw error
+  }
+}
+
+export const getUserByEmail = async (email) => {
+  try {
+    const user = await User.findOne({ email }).lean().exec()
+    log(user)
+    return user
+  } catch (error) {
+    logger.error(`[dal/user] - getUser - ${error}`)
     throw error
   }
 }

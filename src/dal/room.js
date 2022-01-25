@@ -1,6 +1,7 @@
 import Room from '../models/Room'
 import moment from 'moment'
 import logger from '../../libs/logger'
+import { roomTypes } from '../consts'
 
 const currentDate = moment().format('MMM Do YYYY')
 
@@ -16,9 +17,19 @@ export const createRoom = async (data) => {
   }
 }
 
-export const getRoomsByUser = async (userEmail) => {
+export const getPublicRooms = async () => {
   try {
-    const rooms = await Room.find({ users: userEmail }).lean().exec()
+    const rooms = await Room.find({ type: roomTypes.public }).lean().exec()
+    return rooms
+  } catch (error) {
+    logger.error(`[dal/room] - getRooms - ${error}`)
+    throw error
+  }
+}
+
+export const getRoomsByUser = async (userId) => {
+  try {
+    const rooms = await Room.find({ users: userId }).lean().exec()
     return rooms
   } catch (error) {
     logger.error(`[dal/room] - getRooms - ${error}`)
@@ -38,7 +49,7 @@ export const getRoom = async (id) => {
 
 export const getRoomByUniqueName = async (uniqueName) => {
   try {
-    const room = await Room.findOne({ uniqueName }).lean().exec()
+    const room = await Room.findOne({ uniqueName }).populate('users').lean().exec()
     return room
   } catch (error) {
     logger.error(`[dal/room] - getRoomByUniqueName - ${error}`)

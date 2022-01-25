@@ -5,3 +5,8 @@ export const roomSelect = {
   admin: 1,
   type: 1,
 }
+
+export const roomTypes = {
+  private: 'private',
+  public: 'public',
+}

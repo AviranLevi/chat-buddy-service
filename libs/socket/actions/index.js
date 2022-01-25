@@ -42,7 +42,7 @@ export const sendMessage = async (socket, data) => {
   //get all updated messages
   const updatedMessages = await messageDB.getMessagesByRoomId(roomId)
   //send message to room.
-  socket.emit('recivedMessages', updatedMessages)
+  socket.emit('recivedMessages', { updatedMessages, roomId })
 }
 
 export const getMessageFromChatBot = async (socket, question) => {
