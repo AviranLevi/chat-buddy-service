@@ -36,13 +36,13 @@ export const userStopTyping = (socket, user, room) => {
 }
 
 export const sendMessage = async (socket, data) => {
-  const { room: roomId } = data
+  const { room: roomId, roomName } = data
   //save chat into db
   await messageDB.createMessage(data)
   //get all updated messages
   const updatedMessages = await messageDB.getMessagesByRoomId(roomId)
   //send message to room.
-  socket.emit('recivedMessages', { updatedMessages, roomId })
+  socket.emit('recivedMessages', { updatedMessages, roomId, roomName })
 }
 
 export const getMessageFromChatBot = async (socket, question) => {
