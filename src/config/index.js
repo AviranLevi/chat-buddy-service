@@ -1,2 +1,2 @@
 const { env } = process
-export const { PORT, CONNECTION_STRING, DEV } = env
+export const { PORT, CONNECTION_STRING, DEV, CLIENT_INVITE_URL } = env

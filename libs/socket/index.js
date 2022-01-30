@@ -16,17 +16,13 @@ socketIO.on('connection', (socket) => {
   //joined the room
   socket.on('join', (user, room) => socketActions.joinUser(socket, user, room))
   //Someone is typing
-  socket.on('typing', (user) => socketActions.userTyping(socket, user))
+  socket.on('typing', (data) => socketActions.userTyping(socket, data))
   //soemone stopped typing
   socket.on('stopTyping', (user) => socketActions.userStopTyping(socket, user))
   //sending message
   socket.on('roomMessage', (data) => socketActions.sendMessage(socketIO, data))
   //get question - chat bot
-  socket.on('sendMessageToChatBot', (data) =>
-    socketActions.getMessageFromChatBot(socket, data)
-  )
+  socket.on('sendMessageToChatBot', (data) => socketActions.getMessageFromChatBot(socket, data))
   //user disconnected
-  socket.on('disconnect', (userId) =>
-    socketActions.userDisconnect(socket, userId)
-  )
+  socket.on('disconnect', (userId) => socketActions.userDisconnect(socket, userId))
 })

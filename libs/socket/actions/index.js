@@ -4,6 +4,7 @@ import * as questionDB from '../../../src/dal/qusetion'
 import moment from 'moment'
 import logger from '../../logger'
 import { getAnswer } from '../../chatbot'
+import { cLog } from '../../../src/utils/general'
 
 const currentTime = moment().format('HH:MM')
 
@@ -26,13 +27,20 @@ export const joinChatBot = async (socket, user) => {
   socket.emit('joinChatBot', chatBotMessage)
 }
 
-export const userTyping = (socket, user, room) => {
-  socket.emit('notifyTyping', { user, room })
+export const userTyping = (socket, data) => {
+  const { userName, roomId } = data
+  logger.info(`${userName} start typing`)
+  if (userName) {
+    socket.emit('recivedTyping', { userName, roomId })
+  }
 }
 
-export const userStopTyping = (socket, user, room) => {
-  logger.info(`${user} stopped typing`)
-  socket.emit('notifyStopTyping', { user, room })
+export const userStopTyping = (socket, data) => {
+  const { userName, roomId } = data
+  logger.info(`${userName} stopped typing`)
+  if (userName) {
+    socket.emit('recivedStopTyping', { userName, roomId })
+  }
 }
 
 export const sendMessage = async (socket, data) => {
