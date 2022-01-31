@@ -30,10 +30,9 @@ export const getUsers = async () => {
 export const getUserByEmail = async (email) => {
   try {
     const user = await User.findOne({ email }).lean().exec()
-    log(user)
     return user
   } catch (error) {
-    logger.error(`[dal/user] - getUser - ${error}`)
+    logger.error(`[dal/user] - getUserByEmail - ${error}`)
     throw error
   }
 }

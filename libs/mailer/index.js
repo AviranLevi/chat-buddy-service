@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer'
 import { mailerINFO } from './config'
 
-const { service, user, pass, from, to } = mailerINFO
+const { service, user, pass, from } = mailerINFO
 
 const transporter = nodemailer.createTransport({
   service,
@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
   tls: { rejectUnauthorized: false },
 })
 
-export const sendMail = async (subject, text) => {
+export const sendMail = async (subject, text, to) => {
   try {
     const mailOptions = { from, to, subject, text }
     await transporter.sendMail(mailOptions, (error, info) => {
