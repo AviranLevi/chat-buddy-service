@@ -1,8 +1,14 @@
 import io from 'socket.io'
 import * as socketActions from './actions'
 import logger from '../logger'
+import { CLIENT_URL_ORIGIN } from './config'
 
-export const socketServer = (server = 8900) => io(server)
+export const socketServer = (server = 8900) =>
+  io(server, {
+    cors: {
+      origin: CLIENT_URL_ORIGIN,
+    },
+  })
 
 const socketIO = socketServer()
 
