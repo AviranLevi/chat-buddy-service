@@ -6,7 +6,7 @@ import { CLIENT_URL_ORIGIN_SOCKET } from './config'
 
 const origin = '*'
 
-const socketIO = io(server)
+const socketIO = io(server, { cors: origin })
 
 socketIO.on('connection', (socket) => {
   logger.info('user connected')

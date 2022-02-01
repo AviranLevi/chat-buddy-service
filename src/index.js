@@ -26,13 +26,7 @@ const corsOption = {
   origin: [CLIENT_URL_ORIGIN, CLIENT_URL_ORIGIN_SOCKET],
 }
 
-if (DEV) {
-  app.use(cors())
-  logger.info('Cors is running')
-} else {
-  app.use(cors())
-}
-
+app.use(cors())
 app.use('/api', router)
 
 server.listen(port, () => {
