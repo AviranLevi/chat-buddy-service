@@ -4,9 +4,10 @@ import mongoose from 'mongoose'
 import router from './router'
 import { PORT, CONNECTION_STRING, DEV, CLIENT_URL_ORIGIN } from './config'
 import logger from '../libs/logger'
-import { socketServer } from '../libs/socket'
+import http from 'http'
 
 const app = express()
+export const server = http.createServer(app)
 const port = PORT || 3030
 const url = CONNECTION_STRING || 'mongodb://localhost:27017/chat-buddies'
 
@@ -33,8 +34,6 @@ if (DEV) {
 
 app.use('/api', router)
 
-const server = app.listen(port, () => {
+server.listen(port, () => {
   logger.info(`app is listening to port ${port}`)
 })
-
-socketServer(server)
