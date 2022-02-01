@@ -2,10 +2,13 @@ import io from 'socket.io'
 import * as socketActions from './actions'
 import logger from '../logger'
 import { server } from '../../src'
+import { CLIENT_URL_ORIGIN } from './config'
+
+const origin = CLIENT_URL_ORIGIN || 'http://localhost:3000'
 
 const socketIO = io(server, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin,
   },
 })
 
