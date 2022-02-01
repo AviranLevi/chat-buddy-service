@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import router from './router'
 import { PORT, CONNECTION_STRING, DEV, CLIENT_URL_ORIGIN } from './config'
 import logger from '../libs/logger'
+import { socketServer } from '../libs/socket'
 
 const app = express()
 const port = PORT || 3030
@@ -32,6 +33,8 @@ if (DEV) {
 
 app.use('/api', router)
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   logger.info(`app is listening to port ${port}`)
 })
+
+socketServer(server)

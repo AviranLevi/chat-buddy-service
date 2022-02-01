@@ -2,11 +2,9 @@ import io from 'socket.io'
 import * as socketActions from './actions'
 import logger from '../logger'
 
-const socketIO = io(8900, {
-  cors: {
-    origin: 'http://localhost:3000',
-  },
-})
+export const socketServer = (server = 8900) => io(server)
+
+const socketIO = socketServer()
 
 socketIO.on('connection', (socket) => {
   logger.info('user connected')
