@@ -4,7 +4,7 @@ import logger from '../logger'
 import { server } from '../../src'
 import { CLIENT_URL_ORIGIN_SOCKET } from './config'
 
-const origin = CLIENT_URL_ORIGIN_SOCKET || 'http://localhost:3000'
+const origin = '*'
 
 const socketIO = io(server, {
   cors: {
