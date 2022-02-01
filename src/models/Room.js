@@ -23,7 +23,6 @@ const RoomSchema = new Schema({
     {
       type: String,
       ref: 'User',
-      required: [true, `User id is required`],
     },
   ],
   type: {

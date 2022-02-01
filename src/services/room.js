@@ -3,24 +3,31 @@ import * as userDB from '../dal/user'
 import * as messageDB from '../dal/message'
 import * as utils from '../utils'
 import logger from '../../libs/logger'
-import { cLog, log } from '../utils'
 import { CLIENT_INVITE_URL } from '../config'
 import { sendMail } from '../../libs/mailer'
 import { generateMail } from '../utils'
+import { roomTypes } from '../consts'
 
 //CREATE
 export const createRoom = async (data = {}) => {
   try {
-    const { name, emails, admin, admninUserName } = data
+    const { name, emails, type, admin, admninUserName } = data
     //check if user exists, if not, send an invite
-    const users = await handleInvitedUsers(emails, admninUserName)
-    //generate unique name to room
     const uniqueName = `${name}-${utils.generateNumber()}`
-    //send to db
-    if (users.length > 0) {
-      const dataToDB = { name, users, admin, uniqueName }
+
+    if (type === roomTypes.public) {
+      const dataToDB = { name, type, admin, uniqueName }
       const room = await db.createRoom(dataToDB)
       return room
+    } else {
+      const users = await handleInvitedUsers(emails, admninUserName)
+      //generate unique name to room
+      //send to db
+      if (users.length > 0) {
+        const dataToDB = { name, users, type, admin, uniqueName }
+        const room = await db.createRoom(dataToDB)
+        return room
+      }
     }
   } catch (error) {
     logger.error(`[services/room] - createRoom - ${error}`)
