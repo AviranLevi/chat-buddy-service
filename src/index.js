@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import router from './router'
-import { PORT, CONNECTION_STRING, DEV, CLIENT_URL_ORIGIN } from './config'
+import { PORT, CONNECTION_STRING, DEV, CLIENT_URL_ORIGIN, CLIENT_URL_ORIGIN_SOCKET } from './config'
 import logger from '../libs/logger'
 import http from 'http'
 
@@ -22,7 +22,7 @@ mongoose.connect(url, options).then(() => logger.info('DB Connected'))
 app.use(express.json())
 
 const corsOption = {
-  origin: CLIENT_URL_ORIGIN,
+  origin: [CLIENT_URL_ORIGIN, CLIENT_URL_ORIGIN_SOCKET],
 }
 
 if (DEV) {
