@@ -2,9 +2,10 @@ import express from 'express'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import router from './router'
-import { PORT, CONNECTION_STRING, DEV, CLIENT_URL_ORIGIN, CLIENT_URL_ORIGIN_SOCKET } from './config'
 import logger from '../libs/logger'
 import http from 'http'
+
+import { PORT, CONNECTION_STRING, DEV, CLIENT_URL_ORIGIN, CLIENT_URL_ORIGIN_SOCKET } from './config'
 
 const app = express()
 export const server = http.createServer(app)
@@ -29,7 +30,7 @@ if (DEV) {
   app.use(cors())
   logger.info('Cors is running')
 } else {
-  app.use(cors(corsOption))
+  app.use(cors())
 }
 
 app.use('/api', router)
